@@ -1,8 +1,9 @@
 package com.muhaammaad.challenge.database.entity
 
-import androidx.room.*
-
-import java.util.ArrayList
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
 
 
 @Entity(

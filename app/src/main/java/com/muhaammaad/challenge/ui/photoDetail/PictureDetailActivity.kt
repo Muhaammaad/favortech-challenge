@@ -1,16 +1,13 @@
 package com.muhaammaad.challenge.ui.photoDetail
 
+
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
-
-
 import com.muhaammaad.challenge.R
 import com.muhaammaad.challenge.databinding.ActivityPictureDetailScreenBinding
 import com.muhaammaad.challenge.model.PictureDetail
@@ -34,7 +31,7 @@ class PictureDetailActivity : AppCompatActivity() {
 }
 
 
-@BindingAdapter("fullImage")
+@BindingAdapter("app:loadImage")
 fun loadImage(
     view: ImageView,
     mCurrentPictureDetail: PictureDetail?

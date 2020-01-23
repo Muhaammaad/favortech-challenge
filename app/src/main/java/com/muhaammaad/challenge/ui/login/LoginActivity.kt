@@ -1,6 +1,5 @@
 package  com.muhaammaad.challenge.ui.login
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -8,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import  com.muhaammaad.challenge.R
+import com.muhaammaad.challenge.R
 import com.muhaammaad.challenge.databinding.ActivityLoginBinding
-import  com.muhaammaad.challenge.ui.home.HomeActivity
-import  com.muhaammaad.challenge.ui.login.viewmodel.LoginViewModel
+import com.muhaammaad.challenge.ui.home.HomeActivity
+import com.muhaammaad.challenge.ui.login.viewmodel.LoginViewModel
 import com.muhaammaad.challenge.util.CustomeProgressDialog
 
 class LoginActivity : AppCompatActivity() {

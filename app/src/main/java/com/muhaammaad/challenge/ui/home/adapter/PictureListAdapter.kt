@@ -11,17 +11,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
-
-import java.util.ArrayList
-
 import com.muhaammaad.challenge.R
-import com.muhaammaad.challenge.database.repo.ImagesRepository
 import com.muhaammaad.challenge.database.entity.UnsplashImages
+import com.muhaammaad.challenge.database.repo.ImagesRepository
 import com.muhaammaad.challenge.model.PictureDetail
 import com.muhaammaad.challenge.ui.photoDetail.PictureDetailActivity
 import com.muhaammaad.challenge.util.ApiConstants
 import com.muhaammaad.challenge.util.Util
 import com.muhaammaad.challenge.util.XAppExecutors
+import java.util.*
 
 class PictureListAdapter// Public Constructor
     (
@@ -54,6 +52,13 @@ class PictureListAdapter// Public Constructor
     fun updateList(values: Collection<PictureDetail>) {
         mPictureDetailArrayList.clear()
         mPictureDetailArrayList.addAll(values)
+        this.notifyDataSetChanged()
+    }
+
+    fun addList(values: Collection<PictureDetail>) {
+        val positionStart = mPictureDetailArrayList.size
+        mPictureDetailArrayList.addAll(values)
+        this.notifyItemRangeInserted(positionStart + 1, values.size);
     }
 
     fun addItem(singlePictureDetail: PictureDetail) {
@@ -64,11 +69,10 @@ class PictureListAdapter// Public Constructor
         View.OnClickListener {
 
         //get the reference of the all views
-        private val mPicture: ImageView
+        private val mPicture: ImageView = itemView.findViewById<View>(R.id.photo_id) as ImageView
         private var mPictureIndex: Int = 0
 
         init {
-            mPicture = itemView.findViewById<View>(R.id.photo_id) as ImageView
             mPicture.setOnClickListener(this)
         }
 

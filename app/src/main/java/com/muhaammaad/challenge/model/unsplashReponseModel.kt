@@ -1,8 +1,11 @@
 package  com.muhaammaad.challenge.model
 
+import com.google.gson.annotations.SerializedName
+
 class unsplashResponse {
 
-    var id: String? = null
+    @SerializedName("id")
+    var photoId: String? = null
     var createdAt: String? = null
     var updatedAt: String? = null
     var promotedAt: String? = null

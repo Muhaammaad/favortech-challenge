@@ -2,7 +2,6 @@ package com.muhaammaad.challenge.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.muhaammaad.challenge.database.dao.BaseDao
 import com.muhaammaad.challenge.database.entity.UnsplashImages
 
 @Dao

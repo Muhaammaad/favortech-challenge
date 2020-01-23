@@ -19,7 +19,7 @@
                 android:contentDescription="@string/full_image"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/picture_author_detail"
-                app:fullImage="@{viewmodel.MCurrentPictureDetail}"
+                app:loadImage="@{viewmodel.MCurrentPictureDetail}"
                 android:scaleType="centerCrop"/>
 
         <RelativeLayout

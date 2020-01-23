@@ -1,27 +1,18 @@
 package  com.muhaammaad.challenge.ui.login.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
-import io.reactivex.Observable
+import androidx.lifecycle.MutableLiveData
+import com.muhaammaad.challenge.model.accountUser
+import com.muhaammaad.challenge.util.SingleLiveEvent
+import com.muhaammaad.challenge.util.Util
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import  com.muhaammaad.challenge.model.User
-import  com.muhaammaad.challenge.model.accountUser
-import  com.muhaammaad.challenge.network.BackEndApi
-import  com.muhaammaad.challenge.network.WebServiceClient
-import  com.muhaammaad.challenge.util.SingleLiveEvent
-import  com.muhaammaad.challenge.util.Util
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.concurrent.TimeUnit
-import javax.xml.datatype.DatatypeConstants.SECONDS
 
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
