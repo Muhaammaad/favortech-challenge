@@ -2,18 +2,14 @@ package com.muhaammaad.challenge.ui.photoDetail
 
 
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
-import com.bumptech.glide.Glide
 import com.muhaammaad.challenge.R
 import com.muhaammaad.challenge.databinding.ActivityPictureDetailScreenBinding
 import com.muhaammaad.challenge.model.PictureDetail
 import com.muhaammaad.challenge.ui.photoDetail.viewmodel.PhotoDetailViewModel
 import com.muhaammaad.challenge.util.ApiConstants
-import com.muhaammaad.challenge.util.Util
 
 class PictureDetailActivity : AppCompatActivity() {
 
@@ -30,15 +26,3 @@ class PictureDetailActivity : AppCompatActivity() {
     }
 }
 
-
-@BindingAdapter("app:loadImage")
-fun loadImage(
-    view: ImageView,
-    mCurrentPictureDetail: PictureDetail?
-) {
-    if (mCurrentPictureDetail?.mPhotoBytes != null) {
-        view.setImageBitmap(Util.getBitmapWithByteArray(mCurrentPictureDetail.mPhotoBytes!!))
-    } else {
-        Glide.with(view.context).load(mCurrentPictureDetail?.photoThumbnailUrl).into(view)
-    }
-}

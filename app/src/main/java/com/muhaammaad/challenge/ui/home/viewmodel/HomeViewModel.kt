@@ -10,6 +10,7 @@ import com.muhaammaad.challenge.model.unsplashResponse
 import com.muhaammaad.challenge.network.BackEndApi
 import com.muhaammaad.challenge.network.WebServiceClient
 import com.muhaammaad.challenge.util.ApiConstants
+import com.muhaammaad.challenge.util.SingleLiveEvent
 import org.json.JSONException
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,6 +19,7 @@ import retrofit2.Response
 
 class HomeViewModel(application: Application) : AndroidViewModel(application), Callback<List<unsplashResponse>> {
 
+    val mImagesLoading: SingleLiveEvent<String> = SingleLiveEvent()
     var mPictureDetailsList = ObservableArrayMap<String, PictureDetail>()
     var visibleItemCounter: Int = 0
     val pageOffset: Int = 30
@@ -53,16 +55,14 @@ class HomeViewModel(application: Application) : AndroidViewModel(application), C
                 ApiConstants.PAGE_OFFSET + "=" + pageCounter +
                 "&" + ApiConstants.PER_PAGE_ITEM_OFFSET + "=" + pageOffset;
         progressDialog?.set(true)
+        mImagesLoading.value = "Loading More Pictures..."
         WebServiceClient.client.create(BackEndApi::class.java).getPhotos(url).enqueue(this)
     }
 
     override fun onFailure(call: Call<List<unsplashResponse>>?, t: Throwable?) {
         progressDialog?.set(false)
-//        processingNewItem = false
-//        Snackbar.make(
-//            mRecyclerView!!, "Network error...",
-//            Snackbar.LENGTH_SHORT
-//        ).show()
+        processingNewItem = false
+        mImagesLoading.value = "Network Error..."
     }
 
     override fun onResponse(call: Call<List<unsplashResponse>>?, response: Response<List<unsplashResponse>>?) {
