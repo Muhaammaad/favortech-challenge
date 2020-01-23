@@ -3,21 +3,24 @@ package com.muhaammaad.challenge.ui.home.viewmodel
 import android.app.Application
 import androidx.databinding.ObservableArrayMap
 import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.AndroidViewModel
+import com.muhaammaad.challenge.base.BaseViewModel
 import com.muhaammaad.challenge.database.repo.ImagesRepository
 import com.muhaammaad.challenge.model.PictureDetail
 import com.muhaammaad.challenge.model.unsplashResponse
-import com.muhaammaad.challenge.network.BackEndApi
-import com.muhaammaad.challenge.network.WebServiceClient
+import com.muhaammaad.challenge.network.NetworkApi
 import com.muhaammaad.challenge.util.ApiConstants
 import com.muhaammaad.challenge.util.SingleLiveEvent
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import javax.inject.Inject
 
 
-class HomeViewModel(application: Application) : AndroidViewModel(application), Callback<List<unsplashResponse>> {
+class HomeViewModel(application: Application) : BaseViewModel(application) {
+    @Inject
+    lateinit var BackEndApi: NetworkApi
+    private lateinit var subscription: Disposable
 
     val mImagesLoading: SingleLiveEvent<String> = SingleLiveEvent()
     var mPictureDetailsList = ObservableArrayMap<String, PictureDetail>()
@@ -54,22 +57,32 @@ class HomeViewModel(application: Application) : AndroidViewModel(application), C
                 ApiConstants.API_KEY_TAG + "=" + ApiConstants.API_KEY + "&" +
                 ApiConstants.PAGE_OFFSET + "=" + pageCounter +
                 "&" + ApiConstants.PER_PAGE_ITEM_OFFSET + "=" + pageOffset;
-        progressDialog?.set(true)
-        mImagesLoading.value = "Loading More Pictures..."
-        WebServiceClient.client.create(BackEndApi::class.java).getPhotos(url).enqueue(this)
+        subscription = BackEndApi.getPhotos(url)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { onRetrievePhotosListStart() }
+            .subscribe(
+                { result -> onRetrievePhotosListSuccess(result) },
+                { onRetrievePhotosListError() }
+            )
     }
 
-    override fun onFailure(call: Call<List<unsplashResponse>>?, t: Throwable?) {
+    private fun onRetrievePhotosListStart() {
+        progressDialog?.set(true)
+        mImagesLoading.value = "Loading More Pictures..."
+    }
+
+    private fun onRetrievePhotosListError() {
         progressDialog?.set(false)
         processingNewItem = false
         mImagesLoading.value = "Network Error..."
     }
 
-    override fun onResponse(call: Call<List<unsplashResponse>>?, response: Response<List<unsplashResponse>>?) {
+    private fun onRetrievePhotosListSuccess(result: List<unsplashResponse>) {
         progressDialog?.set(false)
         try {
             val tempMap = HashMap<String, PictureDetail>()
-            response?.body()!!.forEach {
+            result.forEach {
                 if (!mPictureDetailsList.containsKey(it.photoId)) {
 
                     val singlePictureDetail = PictureDetail(
@@ -86,11 +99,21 @@ class HomeViewModel(application: Application) : AndroidViewModel(application), C
                 }
             }
             mPictureDetailsList.putAll(tempMap)
+
+            if (tempMap.isEmpty()) {
+                /***
+                 * Means received data was cached in database and shown to user
+                 */
+                pageCounter++
+                getPictureListData()
+            }
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-
     }
 
-
+    override fun onCleared() {
+        super.onCleared()
+        subscription.dispose()
+    }
 }

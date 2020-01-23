@@ -90,7 +90,6 @@ class PictureListAdapter// Public Constructor
                     .into(object : SimpleTarget<Bitmap>() {
                         override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                             mPicture.setImageBitmap(resource)
-                            //                            Log.e("Downloaded Image", "Base64 String length: " + Util.getBitmapBytes(resource).length());
                             XAppExecutors.instance.diskIO().execute {
                                 ImagesRepository.getRepositoryInstance(mContext).insert(
                                     UnsplashImages(

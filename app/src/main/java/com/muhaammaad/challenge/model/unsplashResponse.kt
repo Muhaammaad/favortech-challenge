@@ -2,6 +2,9 @@ package  com.muhaammaad.challenge.model
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Pojo classes of unsplash response
+ */
 class unsplashResponse {
 
     @SerializedName("id")
@@ -36,7 +39,6 @@ class Links {
     var download: String? = null
 
 }
-
 
 class User {
 

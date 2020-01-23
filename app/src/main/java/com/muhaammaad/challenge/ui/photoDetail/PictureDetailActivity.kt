@@ -13,7 +13,7 @@ import com.muhaammaad.challenge.util.ApiConstants
 
 class PictureDetailActivity : AppCompatActivity() {
 
-    var binding: ActivityPictureDetailScreenBinding? = null
+    private var binding: ActivityPictureDetailScreenBinding? = null
     var viewmodel: PhotoDetailViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

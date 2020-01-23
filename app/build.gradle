@@ -27,6 +27,7 @@ android {
 dependencies {
     def lifecycle_version = "2.1.0"
     def roomVersion = '2.0.0-beta01'
+    def dagger2_version = '2.16'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -63,6 +64,12 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     //endregion
+    //region Dagger Dependencies
+    // Dagger 2
+    implementation "com.google.dagger:dagger:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+    //endregion
+
     implementation 'com.google.android.gms:play-services-auth:11.8.0'
 
 }

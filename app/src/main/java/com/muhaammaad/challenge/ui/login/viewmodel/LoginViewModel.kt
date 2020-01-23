@@ -5,6 +5,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.muhaammaad.challenge.base.BaseViewModel
 import com.muhaammaad.challenge.model.accountUser
 import com.muhaammaad.challenge.util.SingleLiveEvent
 import com.muhaammaad.challenge.util.Util
@@ -15,8 +16,7 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 
-class LoginViewModel(application: Application) : AndroidViewModel(application) {
-
+class LoginViewModel(application: Application) : BaseViewModel(application) {
 
     var btnSelected: ObservableBoolean? = null
     var email: ObservableField<String>? = null
