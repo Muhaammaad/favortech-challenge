@@ -45,7 +45,6 @@ class ImagesRepository private constructor() {
             )
                 .setQueryExecutor(XAppExecutors.instance.diskIO())
                 .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()
                 .build()
         }
     }
