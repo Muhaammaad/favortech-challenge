@@ -90,7 +90,7 @@ class PictureListAdapter// Public Constructor
                     .into(object : SimpleTarget<Bitmap>() {
                         override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                             mPicture.setImageBitmap(resource)
-                            XAppExecutors.instance.diskIO().execute {
+                            XAppExecutors.instance.diskIO().execute { //TODO: Either move Logic outside from bindview because its calling multiple times to populate items or maintain if item was added
                                 ImagesRepository.getRepositoryInstance(mContext).insert(
                                     UnsplashImages(
                                         item.photoId ?: "",

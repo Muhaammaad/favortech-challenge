@@ -9,7 +9,10 @@ import com.muhaammaad.challenge.ui.home.viewmodel.HomeViewModel
 import com.muhaammaad.challenge.ui.login.viewmodel.LoginViewModel
 import com.muhaammaad.challenge.ui.photoDetail.viewmodel.PhotoDetailViewModel
 
-abstract class BaseViewModel(application: Application) : AndroidViewModel(application){
+/**
+ * Base ViewModel class
+ */
+abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
     private val injector: ViewModelInjector = DaggerViewModelInjector
         .builder()
         .networkModule(NetworkModule)

@@ -17,7 +17,9 @@ import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import javax.inject.Inject
 
-
+/**
+ * ViewModel to handle Home view and pictureListFragment
+ */
 class HomeViewModel(application: Application) : BaseViewModel(application) {
 
     @Inject
