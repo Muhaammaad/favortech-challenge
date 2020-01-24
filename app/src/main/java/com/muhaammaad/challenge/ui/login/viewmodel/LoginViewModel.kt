@@ -26,7 +26,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     var progressDialog: SingleLiveEvent<Boolean>? = null
     var userLogin: MutableLiveData<accountUser>? = null
 
-    private val DUMMY_EMAIL = "muhammad@favoretech.com"
+    private val DUMMY_EMAIL = "muhammad@favortech.net"
     private val DUMMY_PASSWORD = "123456"
 
     init {
