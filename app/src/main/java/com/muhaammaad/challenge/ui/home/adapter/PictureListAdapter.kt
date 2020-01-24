@@ -82,7 +82,7 @@ class PictureListAdapter// Public Constructor
             mPictureIndex = position
 
             val item = mPictureDetailArrayList.get(mPictureIndex)
-            if (item.mPhotoBytes != null) {
+            if (!item.mPhotoBytes.isNullOrEmpty()) {
                 mPicture.setImageBitmap(Util.getBitmapWithByteArray(item.mPhotoBytes!!))
             } else {
                 Glide.with(mContext).load(item.photoThumbnailUrl)
@@ -90,11 +90,12 @@ class PictureListAdapter// Public Constructor
                     .into(object : SimpleTarget<Bitmap>() {
                         override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                             mPicture.setImageBitmap(resource)
-                            XAppExecutors.instance.diskIO().execute { //TODO: Either move Logic outside from bindview because its calling multiple times to populate items or maintain if item was added
+                            XAppExecutors.instance.diskIO().execute {
+                                item.mPhotoBytes = Util.getBitmapBytes(resource)
                                 ImagesRepository.getRepositoryInstance(mContext).insert(
                                     UnsplashImages(
                                         item.photoId ?: "",
-                                        Util.getBitmapBytes(resource),
+                                        item.mPhotoBytes ?: "",
                                         item.photoAuthorName ?: ""
                                     )
                                 )
